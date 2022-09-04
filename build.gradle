@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+group 'com.serenityjpa'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath('net.serenity-bdd:serenity-gradle-plugin:2.1.4')
+    }
+}
+ext {
+    hamcrestVersion = '2.2'
+    serenityVersion = '2.1.4'
+    serenityCucumberVersion = '1.9.51'
+}
+
+dependencies {
+    testImplementation group: 'org.hamcrest', name: 'hamcrest-core', version: "${hamcrestVersion}"
+    implementation "net.serenity-bdd:serenity-junit:$rootProject.ext.serenityVersion"
+    implementation "net.serenity-bdd:serenity-screenplay:$rootProject.ext.serenityVersion"
+    implementation "net.serenity-bdd:serenity-cucumber:$rootProject.ext.serenityCucumberVersion"
+    implementation "net.serenity-bdd:serenity-screenplay-rest:$rootProject.ext.serenityVersion"
+    implementation 'org.hibernate:hibernate-core:5.4.33.Final'
+    implementation 'org.hibernate:hibernate-entitymanager:5.4.33.Final'
+    implementation 'mysql:mysql-connector-java:8.0.30'
+}
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
